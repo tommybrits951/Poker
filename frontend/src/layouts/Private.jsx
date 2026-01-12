@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router'
 import { CardContext } from '../context/CardContext'
 
 export default function Private() {

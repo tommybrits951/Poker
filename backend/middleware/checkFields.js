@@ -19,21 +19,8 @@ function capNames(req, res, next) {
     next()
 }
 
-function checkDOB(req, res, next) {
-    try {
-        const {dob} = req.body;
-        const current = new Date()
-        if ((current.getFullYear() - 13) < dob.getFullYear()) {
-            return res.status(400).json({message: "Not old enough."})
-        }
-        next()
-    } catch (err) {
-        next(err)
-    }
-}
-
 
 module.exports = {
-    checkDOB,
+
     capNames
 }
