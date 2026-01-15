@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
         default: 100000
     },
     lastOnline: Date
-})
+}, {timestamps: true})
 
 
 module.exports = mongoose.model("User", userSchema)

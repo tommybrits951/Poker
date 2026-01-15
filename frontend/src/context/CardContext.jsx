@@ -2,7 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import axios from "../utils/axios"
 
 
-export const CardContext = createContext()
+const CardContext = createContext()
 
 export default function CardProvider({children}){
         
@@ -29,3 +29,4 @@ export default function CardProvider({children}){
         </CardContext.Provider>
     )
 }
+export {CardContext}

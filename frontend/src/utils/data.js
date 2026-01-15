@@ -7,7 +7,7 @@ class Card {
     }
 }
 
-export const deckArray = ["back.png","ace_of_clubs.png", "ace_of_diamonds.png", "ace_of_hearts.png", "ace_of_spades.png", "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png", "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png", "4_of_clubs.png", "4_of_diamonds.png", "4_of_hearts.png", "4_of_spades.png", "5_of_clubs.png", "5_of_diamonds.png", "5_of_hearts.png", "5_of_spades.png", "6_of_clubs.png", "6_of_diamonds.png", "6_of_hearts.png", "6_of_spades.png", "7_of_clubs.png", "7_of_diamonds.png", "7_of_hearts.png", "7_of_spades.png", "8_of_clubs.png", "8_of_diamonds.png", "8_of_hearts.png", "8_of_spades.png", "9_of_clubs.png", "9_of_diamonds.png", "9_of_hearts.png", "9_of_spades.png", "10_of_clubs.png", "10_of_diamonds.png", "10_of_hearts.png", "10_of_spades.png", "jack_of_clubs.png", "jack_of_diamonds.png", "jack_of_hearts.png", "jack_of_spades.png", "queen_of_clubs.png", "queen_of_diamonds.png", "queen_of_hearts.png", "queen_of_spades.png","king_of_clubs.png", "king_of_diamonds.png", "king_of_hearts.png", "king_of_spades.png"]
+const deckArray = ["back.png","ace_of_clubs.png", "ace_of_diamonds.png", "ace_of_hearts.png", "ace_of_spades.png", "2_of_clubs.png", "2_of_diamonds.png", "2_of_hearts.png", "2_of_spades.png", "3_of_clubs.png", "3_of_diamonds.png", "3_of_hearts.png", "3_of_spades.png", "4_of_clubs.png", "4_of_diamonds.png", "4_of_hearts.png", "4_of_spades.png", "5_of_clubs.png", "5_of_diamonds.png", "5_of_hearts.png", "5_of_spades.png", "6_of_clubs.png", "6_of_diamonds.png", "6_of_hearts.png", "6_of_spades.png", "7_of_clubs.png", "7_of_diamonds.png", "7_of_hearts.png", "7_of_spades.png", "8_of_clubs.png", "8_of_diamonds.png", "8_of_hearts.png", "8_of_spades.png", "9_of_clubs.png", "9_of_diamonds.png", "9_of_hearts.png", "9_of_spades.png", "10_of_clubs.png", "10_of_diamonds.png", "10_of_hearts.png", "10_of_spades.png", "jack_of_clubs.png", "jack_of_diamonds.png", "jack_of_hearts.png", "jack_of_spades.png", "queen_of_clubs.png", "queen_of_diamonds.png", "queen_of_hearts.png", "queen_of_spades.png","king_of_clubs.png", "king_of_diamonds.png", "king_of_hearts.png", "king_of_spades.png"]
 const backCard = new Card("back", "back", 0, deckArray[0])
 let deck = [backCard]
 for (let i = 1; i < deckArray.length; i++) {
@@ -33,7 +33,30 @@ function checkFlush(hand) {
 }
 
 function checkPair(hand) {
-    const ranks = hand.map(card => card.rank)
-    const rankCount = {}    
+    const ranks = hand.some((a, b) => a.rank === b.rank)
+    return ranks
+       
 }
 
+function checkStraight(hand) {
+    const sorted = hand.sort((a, b) => a.rank - b.rank)
+    for (let i = 0; i < sorted.length - 1; i++) {
+        if (sorted[i + 1].rank !== sorted[i].rank + 1) {
+            return false
+        }
+}    return true
+}
+
+function checkStraightFlush(hand) {
+    return checkStraight(hand) && checkFlush(hand)
+}
+
+function checkRoyalFlush(hand) {
+    const ranks = hand.map(card => card.rank)
+    const royalRanks = ["10", "J", "Q", "K", "A"]
+    return checkFlush(hand) && royalRanks.every(rank => ranks.includes(rank))
+}
+
+
+
+export {checkFlush, checkRoyalFlush, checkStraightFlush, checkPair, checkStraight, hands, deck, deckArray}
