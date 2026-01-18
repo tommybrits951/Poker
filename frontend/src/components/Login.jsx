@@ -1,23 +1,32 @@
-import {useState} from 'react'
+import {useState, useContext} from 'react'
 import axios from '../utils/axios'
-import {Link} from 'react-router'
+import {Link, useNavigate} from 'react-router'
+import {CardContext} from '../context/CardContext'
+
 export default function Login() {
+  const {setAuth} = useContext(CardContext)
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     email: "",
     password: ""
   })
   const [err, setErr] = useState("")
+
   function change(e) {
     const {name, value} = e.target;
     setFormData({...formData, [name]: value})
   }
+
   function submit(e) {
     e.preventDefault()
     axios.post("/user/login", formData)
     .then(res => {
-        console.log(res.data)
+        setAuth(res.data)
+        navigate("/")
     })
-    .catch(err => console.log(err))
+    .catch(err => {
+        setErr(err.response?.data?.message || "Login failed")
+    })
 }
     return (
     <section className='absolute bg-stone-300 shadow-lg rounded z-10 w-1/2 left-1/4 top-1/4'>
